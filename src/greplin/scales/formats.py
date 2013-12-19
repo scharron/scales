@@ -35,7 +35,7 @@ OPERATORS = {
   '!=': operator.ne
 }
 
-OPERATOR = re.compile('(%s)' % '|'.join(OPERATORS.keys()))
+OPERATOR = re.compile('(%s)' % '|'.join(list(OPERATORS.keys())))
 
 
 def runQuery(statDict, query):
@@ -45,7 +45,7 @@ def runQuery(statDict, query):
   queryKey = parts[0]
 
   result = {}
-  for key, value in statDict.items():
+  for key, value in list(statDict.items()):
     if key == queryKey:
       if len(parts) == 3:
         op = OPERATORS[parts[1]]
@@ -101,7 +101,7 @@ def htmlFormat(output, pathParts = (), statDict = None, query = None):
 
 def _htmlRenderDict(pathParts, statDict, output):
   """Render a dictionary as a table - recursing as necessary."""
-  keys = statDict.keys()
+  keys = list(statDict.keys())
   keys.sort()
 
   links = []
@@ -135,7 +135,7 @@ def _utf8str(x):
   """Like str(x), but returns UTF8."""
   if isinstance(x, str):
     return x
-  if isinstance(x, unicode):
+  if isinstance(x, str):
     return x.encode('utf8')
   return str(x)
 

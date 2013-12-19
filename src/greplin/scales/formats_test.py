@@ -17,7 +17,7 @@
 from greplin import scales
 from greplin.scales import formats
 
-from StringIO import StringIO
+from io import StringIO
 import unittest
 
 try:
@@ -75,7 +75,7 @@ class StatsTest(unittest.TestCase):
 class UnicodeFormatTest(unittest.TestCase):
   """Test cases for Unicode stat formatting."""
 
-  UNICODE_VALUE = u'\u842c\u77e5\u5802'
+  UNICODE_VALUE = '\u842c\u77e5\u5802'
 
 
   def testHtmlFormat(self):
@@ -99,6 +99,6 @@ class UnicodeFormatTest(unittest.TestCase):
     out = StringIO()
     stats = {'garbage': '\xc2\xc2 ROAR!! \0\0'}
     formats.jsonFormat(out, statDict=stats)
-    self.assertEquals(json.loads(out.getvalue()), {u'garbage': u'\xc2\xc2 ROAR!! \0\0'})
+    self.assertEquals(json.loads(out.getvalue()), {'garbage': '\xc2\xc2 ROAR!! \0\0'})
 
 

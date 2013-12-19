@@ -230,7 +230,7 @@ class InverseMap(Aggregator):
 
   def result(self):
     """Formats the result."""
-    for value in self.__result.itervalues():
+    for value in self.__result.values():
       value.sort(key = _humanSortKey)
     return self.__result
 
@@ -366,16 +366,16 @@ class Aggregation(object):
 
     if hasattr(aggregators, 'iteritems'):
       # Keep walking the tree.
-      for key, value in aggregators.iteritems():
+      for key, value in aggregators.items():
         if isinstance(key, tuple):
           key, regex = key
-          for dataKey, dataValue in data.iteritems():
+          for dataKey, dataValue in data.items():
             if regex.match(dataKey):
               result.setdefault(key, {})
               self._aggregate(source, value, dataValue, result[key])
         else:
           if key == '*':
-            for dataKey, dataValue in data.iteritems():
+            for dataKey, dataValue in data.items():
               result.setdefault(dataKey, {})
               self._aggregate(source, value, dataValue, result[dataKey])
           elif key in data:
@@ -397,7 +397,7 @@ class Aggregation(object):
       return root.result()
     else:
       result = {}
-      for key, value in root.iteritems():
+      for key, value in root.items():
         if value:
           result[key] = self.result(value)
       return result
